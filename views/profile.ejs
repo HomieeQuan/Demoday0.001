@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+    <title>Basketball Training Form</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/4f3c245195.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div >
+
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-6 hide" style="display:none">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Local</h3>
+
+                <% if (user.local.email) { %>
+                    <p>
+                        <strong>id</strong>: <%= user._id %><br>
+                        <strong>email</strong>: <%= user.local.email %><br>
+                        <strong>password</strong>: <%= user.local.password %>
+                    </p>
+
+                    <a href="/unlink/local" class="btn btn-default">Unlink</a>
+                <% } else { %>
+                    <a href="/connect/local" class="btn btn-default">Connect Local</a>
+                <% } %>
+
+            </div>
+        </div>
+        <div class="col-sm-6">
+          <section class="right">
+          <h3>Workouts</h3>
+          <ul class="improve">
+          <% for(var i=0; i<improve.length; i++) {%>
+            <li class="message">
+              <span><%= improve[i].workouts %></span>
+              <span><%= improve[i].level %></span>
+              <span><i  id="<%= improve[i]._id %>" class="fa fa-trash" aria-hidden="true"></i></span>
+              
+            </li>
+          <% } %>
+          </ul>
+          </section>
+
+          <section class="left">
+          <h2>Training form</h2>
+        <% if (user.local.email) { %>
+          <form method="POST" action="/improve">
+            
+        
+            <input type="text" value="<%= user.local.email %>" name="name" style="display:none">
+            
+          
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required><br>
+          
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select><br>
+          
+            <label for="level">Basketball Skill Level:</label>
+            <select id="level" name="level" required>
+              <option value="beginner">Beginner</option>
+              <option value="mid-level">Mid-level</option>
+              <option value="expert">Expert</option>
+            </select><br>
+          
+            <label for="goals">What are your basketball training goals?</label>
+            <textarea id="goals" name="goals" required></textarea><br>
+          
+            <input type="submit" value="Submit">
+          </form>
+          
+        </div>
+        <% } %>
+      </section>
+</div>
+
+<script src="main.js"></script>
+
+</body>
+</html>
